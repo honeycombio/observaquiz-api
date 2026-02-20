@@ -37,10 +37,10 @@ const lambdaExecutionRole = new aws.iam.Role("execution-role", {
 
 const apiLambda = new aws.lambda.Function("api-lambda", {
   role: lambdaExecutionRole.arn,
-  runtime: aws.lambda.Go1dxRuntime,
+  runtime: "provided.al2023",
 
   code: new pulumi.asset.FileArchive("../deploy/api.zip"),
-  handler: "api",
+  handler: "bootstrap",
   timeout: 40,
   environment: {
     variables: {
@@ -56,10 +56,10 @@ const apiLambda = new aws.lambda.Function("api-lambda", {
 
 const deepChecksLambda = new aws.lambda.Function("deepchecks-lambda", {
   role: lambdaExecutionRole.arn,
-  runtime: aws.lambda.Go1dxRuntime,
+  runtime: "provided.al2023",
 
   code: new pulumi.asset.FileArchive("../deploy/deepchecks_callback.zip"),
-  handler: "deepchecks_callback",
+  handler: "bootstrap",
   timeout: 40,
   environment: {
     variables: {
